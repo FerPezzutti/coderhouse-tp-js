@@ -96,9 +96,7 @@ function borrarProducto(e) {
   // Obtenemos el producto ID que hay en el boton pulsado
   const idProd = e.target.dataset.item;
   // Borramos todos los productos
-  listaProductos = listaProductos.filter((listaProductosId) => {
-      return listaProductosId !== idProd;
-  });
+  listaProductos = listaProductos.filter((el) => el.id != idProd)
   // volvemos a renderizar
   renderizarProductos();
 }
