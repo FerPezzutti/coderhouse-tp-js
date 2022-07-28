@@ -1,0 +1,6 @@
+.navbar-brand{
+	font-size: 2rem;
+}
+.header-title-carrito{
+	border-bottom: 1px solid var(--bs-gray-300);
+}
