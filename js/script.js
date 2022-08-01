@@ -7,9 +7,12 @@ const DOMlistaProductos = document.querySelector('#carrito-items-description');
 const DOMaddProductosBtn = document.querySelector('#add-product-btn');
 const DOMemptyCartBtn = document.querySelector('#empty-cart-btn');
 
-// le agrego eventos a los botones del header
+// le agrego eventos a los botones del header de 2 formas diferentes
 DOMaddProductosBtn.addEventListener('click', agregarProductos)
-DOMemptyCartBtn.addEventListener('click', vaciarCarrito)
+
+DOMemptyCartBtn.onclick = () => {
+    vaciarCarrito();
+}
 
 // Defino la clase producto con sus atributos
 class Producto{
