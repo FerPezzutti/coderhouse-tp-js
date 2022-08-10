@@ -61,6 +61,7 @@ DOMCartBtn.onclick = () => {
 
 // Funcion que se activa al agregar un producto desde el formulario
 function createProducto() {
+    // aca estoy harcodeando el id de producto porque todavia no logre hacerlo dinamico correctamente
     let idProducto = 1
     let nombreProducto = document.querySelector('#nombreProducto').value
     let precioProducto = document.querySelector('#precioProducto').value
