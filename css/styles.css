@@ -1,6 +1,47 @@
+.navbar-container .navbar{
+	padding: 1rem 4.5rem;
+	box-shadow: rgb(229 229 229) 0px -1px 0px 0px inset;
+}
 .navbar-brand{
 	font-size: 2rem;
 }
 .header-title-carrito{
 	border-bottom: 1px solid var(--bs-gray-300);
+}
+.img-container{
+	position: relative;
+	overflow: hidden;
+}
+.btn-add-to-cart{
+	position: absolute;
+	bottom: -60px;
+	left: 0px;
+	width: 100%;
+	height: 60px;
+	border: 0px;
+	opacity: 0;
+	transition: all 0.3s ease-in-out;
+	background: #FFF;
+	font-size: 12px;
+}
+.item:hover .btn-add-to-cart{
+	opacity: 0.8;
+	bottom: 0px;
+}
+#cartModal .modal-dialog{
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+#cartModal .modal-content{
+	border-radius: 0px;
+	border: 0px;
+	height: 100vh;
+	max-height: 100vh;
+}
+#cartModal .modal-header{
+	border: 0px;
+}
+#cartModal .modal-header .btn-close{
+	opacity: 1;
 }
