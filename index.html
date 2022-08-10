@@ -17,7 +17,7 @@
           <img src="img/brand.svg" width="150" class="img-fluid">
         </div>
         <div class="col text-end">
-          <button class="btn btn-primary my-2 my-sm-0 me-3" type="button" id="add-product-btn" data-bs-toggle="modal" data-bs-target="#addProductsModal">Agregar producto</button>
+          <button class="btn btn-primary my-2 my-sm-0 me-3" type="button" id="add-product-btn" data-bs-toggle="modal" data-bs-target="#addProductsModal">Crear producto</button>
           <a href="" id="open-cart-link" class="link-dark fs-5" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="bi bi-cart"></i></a>
         </div>
       </nav>
@@ -81,11 +81,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Agregar producto</h5>
+          <h5 class="modal-title">Crear producto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="" method="POST">
             <div class="mb-3">
               <label for="imagenProducto" class="form-label">Imagen del producto</label>
               <input type="file" class="form-control" id="imagenProducto" aria-describedby="emailHelp">
@@ -106,7 +106,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Agregar</button>
+          <button type="submit" class="btn btn-primary" id="submitProducto" data-bs-dismiss="modal">Crear</button>
         </div>
       </div>
     </div>
