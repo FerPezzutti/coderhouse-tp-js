@@ -82,14 +82,14 @@ function saveInLocalStorage(){
 // Leo los productos desde LocalStorage
 function readFromLocalStorage(){
     const listaProductosJson = localStorage.getItem('listaProductos')
-    console.log(listaProductosJson)
+    console.log("uno" + listaProductosJson)
     const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
-    console.log(listaProductosFromLocalStorage)
+    console.log("dos" + listaProductosFromLocalStorage)
     listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
     console.log(listaProductos)
     renderizarProductos()
 }
-readFromLocalStorage()
+
 // Renderizamos los productos en la sabana de productos
 function renderizarProductos(){
 
@@ -115,7 +115,7 @@ function renderizarProductos(){
 
 // Funcion que chekea si la sabana esta vacia
 function checkEmptySabana(){
-    listaProductos.length > 0 ? readFromLocalStorage() : document.querySelector(".empty-sabana-txt").classList.remove("d-none");
+    localStorage.length > 0 ? document.querySelector(".empty-sabana-txt").classList.add("d-none") : document.querySelector(".empty-sabana-txt").classList.remove("d-none");
 }
 
 // readFromLocalStorage()
