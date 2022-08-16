@@ -12,7 +12,6 @@ const DOMlistaProductos = document.querySelector('#sabana-items-container');
 const DOMlistaCarrito = document.querySelector('#carrito-items-description');
 const DOMaddProductosBtn = document.querySelector('#submitProducto');
 const DOMCartBtn = document.querySelector('#open-cart-link');
-const DOMAddToCartBtn = document.querySelector('#btn-add-to-cart');
 
 // Defino la clase producto con sus atributos
 class Producto{
@@ -46,12 +45,10 @@ class Producto{
 
 // ********************************* EVENTOS ********************************* //
 
-// window.addEventListener("load", renderizarProductosSabana());
 window.addEventListener("load", checkEmptySabana());
+window.addEventListener("load", readFromLocalStorage());
 
-// le agrego eventos a los botones del header de 2 formas diferentes
 DOMaddProductosBtn.addEventListener('click', createProducto)
-// DOMAddToCartBtn.addEventListener('click', addToCart)
 
 DOMCartBtn.onclick = () => {
     checkEmptyCart()
@@ -62,16 +59,23 @@ DOMCartBtn.onclick = () => {
 // Funcion que se activa al agregar un producto desde el formulario
 function createProducto() {
     // aca estoy harcodeando el id de producto porque todavia no logre hacerlo dinamico correctamente
-    let idProducto = 1
+    let idProducto = listaProductos.length + 1
     let nombreProducto = document.querySelector('#nombreProducto').value
     let precioProducto = document.querySelector('#precioProducto').value
     let stockProducto = document.querySelector('#stockProducto').value
     let imgProducto = document.querySelector('#imagenProducto').files[0].name
 
+    // creo un nuevo producto y lo guardo en el array de productos
     const producto = new Producto(idProducto, nombreProducto, precioProducto, stockProducto, imgProducto);
     listaProductos.push(producto);
-    saveInLocalStorage();
-    readFromLocalStorage();
+    // guardo el producto en local storage y renderizo los productos
+    saveInLocalStorage()
+    renderizarProductos()
+    // ejecuto un success toast
+    Toastify({
+        text: "Producto creado!",
+        duration: 3000
+    }).showToast();
 }
 
 // Guardo la lista de productos en LocalStorage
@@ -81,18 +85,18 @@ function saveInLocalStorage(){
 
 // Leo los productos desde LocalStorage
 function readFromLocalStorage(){
-    const listaProductosJson = localStorage.getItem('listaProductos')
-    console.log("uno" + listaProductosJson)
-    const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
-    console.log("dos" + listaProductosFromLocalStorage)
-    listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
-    console.log(listaProductos)
-    renderizarProductos()
+    if (localStorage.length > 0) {
+        const listaProductosJson = localStorage.getItem('listaProductos')
+        const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
+        listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
+        // renderizo productos cargados en local storage
+        renderizarProductos()
+    }
 }
 
 // Renderizamos los productos en la sabana de productos
 function renderizarProductos(){
-
+    checkEmptySabana()
     // Primero vacio el contenedor por si ya tiene productos cargados
     DOMlistaProductos.textContent = ''
 
@@ -110,7 +114,11 @@ function renderizarProductos(){
               '</div>'+
             '</div>'
         );
+        // Creo un event listener para los botones de agregar al carrito
+        document.querySelector('.btn-add-to-cart').addEventListener('click', addToCart)
     }
+
+    
 }
 
 // Funcion que chekea si la sabana esta vacia
@@ -118,21 +126,28 @@ function checkEmptySabana(){
     localStorage.length > 0 ? document.querySelector(".empty-sabana-txt").classList.add("d-none") : document.querySelector(".empty-sabana-txt").classList.remove("d-none");
 }
 
+// Funcion agregar productos al carrito
+function addToCart(e) {
+    // Obtenemos el producto ID que hay en el boton pulsado
+    const idProd = e.target.dataset.item;
+    console.log(idProd)
+    // Toastify({
+    //     text: "Producto agregado al carrito",
+    //     duration: 3000
+    // }).showToast();
+
+    // let nuevoItemCarrito = new CarritoItem(id, nombre, precio, stock, img, idProducto)
+}
+
 // readFromLocalStorage()
 
 // Agrego toastify
 
-// Toastify({
-//     text: "Producto agregado al carrito",
-//     duration: 3000
-// }).showToast();
 
-// function addToCart(e) {
-//     // Obtenemos el producto ID que hay en el boton pulsado
-//     const idProd = e.target.dataset.item;
-//     alert(idProd)
-//     let nuevoItemCarrito = new CarritoItem(id, nombre, precio, stock, img, idProducto)
-// }
+
+
+
+
 
 // Dejo comentadas todas estas funciones que tal vez reutilice mas adelante
 
