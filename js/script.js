@@ -47,7 +47,7 @@ class Producto{
 // ********************************* EVENTOS ********************************* //
 
 // window.addEventListener("load", renderizarProductosSabana());
-// window.addEventListener("load", checkEmptySabana());
+window.addEventListener("load", checkEmptySabana());
 
 // le agrego eventos a los botones del header de 2 formas diferentes
 DOMaddProductosBtn.addEventListener('click', createProducto)
@@ -69,12 +69,27 @@ function createProducto() {
     let imgProducto = document.querySelector('#imagenProducto').files[0].name
 
     const producto = new Producto(idProducto, nombreProducto, precioProducto, stockProducto, imgProducto);
-
     listaProductos.push(producto);
     saveInLocalStorage();
     readFromLocalStorage();
 }
 
+// Guardo la lista de productos en LocalStorage
+function saveInLocalStorage(){
+    localStorage.setItem('listaProductos', JSON.stringify(listaProductos))
+}
+
+// Leo los productos desde LocalStorage
+function readFromLocalStorage(){
+    const listaProductosJson = localStorage.getItem('listaProductos')
+    console.log(listaProductosJson)
+    const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
+    console.log(listaProductosFromLocalStorage)
+    listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
+    console.log(listaProductos)
+    renderizarProductos()
+}
+readFromLocalStorage()
 // Renderizamos los productos en la sabana de productos
 function renderizarProductos(){
 
@@ -98,20 +113,19 @@ function renderizarProductos(){
     }
 }
 
-// Guardo la lista de productos en LocalStorage
-function saveInLocalStorage(){
-    localStorage.setItem('listaProductos', JSON.stringify(listaProductos))
+// Funcion que chekea si la sabana esta vacia
+function checkEmptySabana(){
+    listaProductos.length > 0 ? readFromLocalStorage() : document.querySelector(".empty-sabana-txt").classList.remove("d-none");
 }
 
-// Leo los productos desde LocalStorage
-function readFromLocalStorage(){
-    const listaProductosJson = localStorage.getItem('listaProductos')
-    const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
-    listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
-    renderizarProductos()
-}
+// readFromLocalStorage()
 
-readFromLocalStorage();
+// Agrego toastify
+
+// Toastify({
+//     text: "Producto agregado al carrito",
+//     duration: 3000
+// }).showToast();
 
 // function addToCart(e) {
 //     // Obtenemos el producto ID que hay en el boton pulsado
@@ -142,14 +156,7 @@ readFromLocalStorage();
 //     }
 // }
 
-// // Funcion que chekea si la sabana esta vacia
-// function checkEmptySabana(){
-//     if (listaProductos.length > 0){
-//         document.querySelector(".empty-sabana-txt").classList.add("d-none");
-//     } else{
-//         document.querySelector(".empty-sabana-txt").classList.remove("d-none");
-//     }
-// }
+
 
 // // function actualizarCantidad(){
 // // }
