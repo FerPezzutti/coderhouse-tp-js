@@ -1,0 +1,8 @@
+//data.json
+
+[
+	{"id": 11, "nombre": "Zapatillas", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
+	{"id": 12, "nombre": "Pantalones", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
+	{"id": 13, "nombre": "Remera", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
+	{"id": 14, "nombre": "Buzo", "precio": 2000, "stock": 1, "img": "alphafly.jpg"}
+]

@@ -24,16 +24,16 @@ class Producto{
     }
 }
 
-// class CarritoItem{
-//     constructor(id, nombre, precio, stock, img, idProducto){
-//         this.id = id
-//         this.nombre = nombre
-//         this.precio = parseFloat(precio)
-//         this.stock = parseInt(stock)
-//         this.img = img
-//         this.idProducto = idProducto
-//     }
-// }
+class CarritoItem{
+    constructor(id, nombre, precio, stock, img, idProducto){
+        this.id = id
+        this.nombre = nombre
+        this.precio = parseFloat(precio)
+        this.stock = parseInt(stock)
+        this.img = img
+        this.idProducto = idProducto
+    }
+}
 
 // function productoElegido(id, nombre, precio, stock, img, idProducto) {
 //     this.id = id
@@ -100,9 +100,31 @@ function renderizarProductos(){
     // Primero vacio el contenedor por si ya tiene productos cargados
     DOMlistaProductos.textContent = ''
 
-    // Luego renderizo los productos dentro del array con sus clases correspondientes
-    for (let producto of listaProductos){
-        DOMlistaProductos.insertAdjacentHTML("afterbegin",
+    // // Luego renderizo los productos dentro del array con sus clases correspondientes
+    // for (let producto of listaProductos){
+    //     DOMlistaProductos.insertAdjacentHTML("afterbegin",
+    //         '<div class="col-6 col-xl-3 item mb-4">'+
+    //           '<div class="img-container">'+
+    //             '<img class="img-fluid" src="img/'+ producto.img +'" />'+
+    //             '<button class="btn-add-to-cart" data-item="'+ producto.id +'">Agregar al carrito</button>'+
+    //           '</div>'+
+    //           '<div class="item-description-container mt-2 justify-content-between d-flex">'+
+    //             '<h5>'+ producto.nombre +'</h5>'+
+    //             '<span>'+ moneda + producto.precio +'</span>'+
+    //           '</div>'+
+    //         '</div>'
+    //     );
+    //     // Creo un event listener para los botones de agregar al carrito
+    //     document.querySelector('.btn-add-to-cart').addEventListener('click', addToCart)
+    // }
+
+    fetch('data.json', {
+      mode: "no-cors"
+    })
+    .then( (res) => res.json())
+    .then( (data) => {
+        for (let producto of listaProductos) {
+            DOMlistaProductos.insertAdjacentHTML("afterbegin",
             '<div class="col-6 col-xl-3 item mb-4">'+
               '<div class="img-container">'+
                 '<img class="img-fluid" src="img/'+ producto.img +'" />'+
@@ -113,11 +135,10 @@ function renderizarProductos(){
                 '<span>'+ moneda + producto.precio +'</span>'+
               '</div>'+
             '</div>'
-        );
-        // Creo un event listener para los botones de agregar al carrito
-        document.querySelector('.btn-add-to-cart').addEventListener('click', addToCart)
-    }
-
+            )
+            document.querySelector('.btn-add-to-cart').addEventListener('click', addToCart)
+        }
+    })
     
 }
 
@@ -129,15 +150,29 @@ function checkEmptySabana(){
 // Funcion agregar productos al carrito
 function addToCart(e) {
     // Obtenemos el producto ID que hay en el boton pulsado
-    const idProd = e.target.dataset.item;
-    console.log(idProd)
-    // Toastify({
-    //     text: "Producto agregado al carrito",
-    //     duration: 3000
-    // }).showToast();
+    const idSelectedProd = e.target.dataset.item;
+   
+    const nuevoItem = listaProductos.find((element) => element.id === idSelectedProd);
+
+    console.log(element.id)
+
+    // const productoElegido = new CarritoItem(id, nombreProducto, precioProducto, stockProducto, imgProducto, idProducto);
+    // listaCarrito.push(productoElegido);
+
+    // console.log(idProd)
+    Toastify({
+        text: "Producto agregado al carrito",
+        duration: 3000
+    }).showToast();
+    
+    console.log(nuevoItem)
 
     // let nuevoItemCarrito = new CarritoItem(id, nombre, precio, stock, img, idProducto)
 }
+
+
+
+
 
 // readFromLocalStorage()
 
