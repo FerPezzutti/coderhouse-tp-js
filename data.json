@@ -1,8 +1,10 @@
-//data.json
-
 [
-	{"id": 11, "nombre": "Zapatillas", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
-	{"id": 12, "nombre": "Pantalones", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
-	{"id": 13, "nombre": "Remera", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
-	{"id": 14, "nombre": "Buzo", "precio": 2000, "stock": 1, "img": "alphafly.jpg"}
+	{"id": 1, "nombre": "Zapatillas Airmax", "precio": 2000, "stock": 1, "img": "airmax.jpg"},
+	{"id": 2, "nombre": "Zapatillas Alphafly", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
+	{"id": 3, "nombre": "Buzo Jordan", "precio": 2000, "stock": 1, "img": "hoodie.jpg"},
+	{"id": 4, "nombre": "Jogging Nike", "precio": 2000, "stock": 1, "img": "jogging.jpg"},
+	{"id": 5, "nombre": "Buzo Jordan", "precio": 2000, "stock": 1, "img": "hoodie.jpg"},
+	{"id": 6, "nombre": "Jogging Nike", "precio": 2000, "stock": 1, "img": "jogging.jpg"},
+	{"id": 7, "nombre": "Zapatillas Alphafly", "precio": 2000, "stock": 1, "img": "alphafly.jpg"},
+	{"id": 8, "nombre": "Zapatillas Airmax", "precio": 2000, "stock": 1, "img": "airmax.jpg"}
 ]
