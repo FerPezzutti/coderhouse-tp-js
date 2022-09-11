@@ -5,6 +5,8 @@
 let listaCarrito = []
 let listaProductos = []
 let id = 0
+let shippingCost = 1000
+let freeShippingFrom = 15000
 
 const moneda = "$"
 const DOMsabanaProductos = document.querySelector('#sabana-items-container');
@@ -78,10 +80,12 @@ function addToCart(e) {
     
     Toastify({
         text: "Producto agregado al carrito",
-        duration: 3000
+        duration: 1000
     }).showToast();
     
+    // ejecuto funciones para renderizar el carrito desplegable
     renderCart()
+    actualizarTotales()
 }
 
 // Funcion renderizar carrito
@@ -89,10 +93,15 @@ function renderCart(){
     //  si el carrito no tiene items
     if (listaCarrito.length == 0){
         document.querySelector('.empty-cart-txt').classList.remove('d-none')
+        document.querySelector('.js-cart-size').textContent = '0'
     }
     // si el carrito tiene items
     else{
         document.querySelector('.empty-cart-txt').classList.add('d-none')
+        document.querySelector('.js-cart-totals').classList.remove('d-none')
+        document.querySelector('.js-cart-size').textContent = listaCarrito.length
+        // vacio el contenedor para que no se dupliquen los productos
+        DOMlistaCarrito.textContent = ''
         listaCarrito.forEach((prod) => {
             DOMlistaCarrito.insertAdjacentHTML("afterbegin",
             '<div class="row mb-4">'+
@@ -109,21 +118,39 @@ function renderCart(){
     }
 }
 
-// // function actualizarTotales(){
-// // }
-
-// Guardo la lista de productos en LocalStorage
-function saveInLocalStorage(){
-    localStorage.setItem('listaProductos', JSON.stringify(listaProductos))
-}
-
-// Leo los productos desde LocalStorage
-function readFromLocalStorage(){
-    if (localStorage.length > 0) {
-        const listaProductosJson = localStorage.getItem('listaProductos')
-        const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
-        listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
-        // renderizo productos cargados en local storage
-        // renderizarProductos()
+function actualizarTotales(){
+    let cartSubtotal = listaCarrito.reduce((acc,el) => acc + el.precio, 0)
+    let cartTotal = cartSubtotal + shippingCost
+    document.querySelector('.js-subtotal').textContent = '$' + cartSubtotal
+    if (cartSubtotal >= freeShippingFrom){
+        document.querySelector('.js-free-shipping').textContent = 'Tu envío es gratis'
+        document.querySelector('.js-shipping-cost').textContent = 'Gratis'
+        let cartTotal = cartSubtotal
+        document.querySelector('.js-total').textContent = '$' + cartTotal
+    }
+    else{
+        let freeshipping = freeShippingFrom - cartSubtotal
+        document.querySelector('.js-free-shipping').textContent = 'Te faltan $' + freeshipping + ' para tener envío gratis'
+        document.querySelector('.js-total').textContent = '$' + cartTotal
+        document.querySelector('.js-shipping-cost').textContent = '$' + shippingCost
     }
 }
+
+
+
+
+// // Guardo la lista de productos en LocalStorage
+// function saveInLocalStorage(){
+//     localStorage.setItem('listaProductos', JSON.stringify(listaProductos))
+// }
+
+// // Leo los productos desde LocalStorage
+// function readFromLocalStorage(){
+//     if (localStorage.length > 0) {
+//         const listaProductosJson = localStorage.getItem('listaProductos')
+//         const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
+//         listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
+//         // renderizo productos cargados en local storage
+//         // renderizarProductos()
+//     }
+// }

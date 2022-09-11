@@ -45,3 +45,16 @@
 #cartModal .modal-header .btn-close{
 	opacity: 1;
 }
+.cart-icon{
+	font-size: 30px;
+	position: relative;
+}
+.js-cart-size{
+	position: absolute;
+    font-size: 13px;
+    font-style: normal;
+    top: 7px;
+    right: 4px;
+    width: 20px;
+    text-align: center;
+}

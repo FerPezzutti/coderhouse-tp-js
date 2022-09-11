@@ -19,7 +19,7 @@
         </div>
         <div class="col text-end">
           <!-- <button class="btn btn-primary my-2 my-sm-0 me-3" type="button" id="add-product-btn" data-bs-toggle="modal" data-bs-target="#addProductsModal">Crear producto</button> -->
-          <a href="" id="open-cart-link" class="link-dark fs-5" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="bi bi-cart"></i></a>
+          <a href="" id="open-cart-link" class="link-dark fs-5" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="bi bi-cart cart-icon"><span class="js-cart-size">0</span></i></a>
         </div>
       </nav>
     </div>
@@ -43,14 +43,27 @@
           <div class="container-fluid text-start" id="carrito-items-description">
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer js-cart-totals d-none">
           <div class="container-fluid text-start">
             <div class="row">
+              <div class="col js-free-shipping text-center">
+                Te faltan $ 0 para tener envío gratis
+              </div>
+            </div>
+            <div class="row mt-2">
               <div class="col">
                 Subtotal
               </div>
-              <div class="col text-end">
-                $20
+              <div class="col text-end js-subtotal">
+                $0
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col">
+                Envio
+              </div>
+              <div class="col text-end js-shipping-cost">
+                $0
               </div>
             </div>
             <div class="row mt-2">
@@ -58,7 +71,7 @@
                 <b>Total</b>
               </div>
               <div class="col text-end">
-                <b>$20</b>
+                <b class="js-total">$0</b>
               </div>
             </div>
             <div class="row text-center mt-5">
