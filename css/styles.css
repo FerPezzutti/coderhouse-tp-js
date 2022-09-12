@@ -66,3 +66,14 @@
 .js-green-text{
 	color: green;
 }
+
+/* mobile styles */
+
+@media(max-width: 991px){
+	.navbar-container .navbar{
+		padding: 1rem 1.5rem;
+	}
+	#cartModal .modal-dialog{
+		max-width: none;
+	}
+}
