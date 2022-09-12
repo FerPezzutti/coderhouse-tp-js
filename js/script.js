@@ -78,17 +78,19 @@ function addToCart(e) {
         listaCarrito.push(productoElegido)
     })
     
+    // ejecuto funciones para renderizar el carrito desplegable
+    setTimeout(function(){
+        renderCart()
+        actualizarTotales()
+    }, 500);
+
     Toastify({
         text: "Producto agregado al carrito",
         duration: 1000
     }).showToast();
-    
-    // ejecuto funciones para renderizar el carrito desplegable
-    renderCart()
-    actualizarTotales()
 
     // guardo el carrito en session storage
-    saveInSessionStorage()
+    // saveInSessionStorage()
 }
 
 // Funcion renderizar carrito
@@ -96,10 +98,13 @@ function renderCart(){
     //  si el carrito no tiene items
     if (listaCarrito.length == 0){
         document.querySelector('.empty-cart-txt').classList.remove('d-none')
+        document.querySelector('.js-cart-totals').classList.add('d-none')
+        DOMlistaCarrito.classList.add('d-none')
         document.querySelector('.js-cart-size').textContent = '0'
     }
     // si el carrito tiene items
     else{
+        DOMlistaCarrito.classList.remove('d-none')
         document.querySelector('.empty-cart-txt').classList.add('d-none')
         document.querySelector('.js-cart-totals').classList.remove('d-none')
         document.querySelector('.js-cart-size').textContent = listaCarrito.length
@@ -125,35 +130,41 @@ function renderCart(){
     }
 }
 
+// funcion que actualiza los totales y subtotales del carrito
 function actualizarTotales(){
     let cartSubtotal = listaCarrito.reduce((acc,el) => acc + el.precio, 0)
     let cartTotal = cartSubtotal + shippingCost
     document.querySelector('.js-subtotal').textContent = '$' + cartSubtotal
     if (cartSubtotal >= freeShippingFrom){
-        document.querySelector('.js-free-shipping').textContent = 'Tu envío es gratis'
-        document.querySelector('.js-shipping-cost').textContent = 'Gratis'
+        document.querySelector('.js-free-shipping').innerHTML = 'Tu envío es <span class="js-green-text">gratis</span>'
+        document.querySelector('.js-shipping-cost').innerHTML = '<span class="js-green-text">Gratis</span>'
         let cartTotal = cartSubtotal
         document.querySelector('.js-total').textContent = '$' + cartTotal
     }
     else{
         let freeshipping = freeShippingFrom - cartSubtotal
-        document.querySelector('.js-free-shipping').textContent = 'Te faltan $' + freeshipping + ' para tener envío gratis'
+        document.querySelector('.js-shipping-cost').classList.remove('js-green-text')
+        document.querySelector('.js-free-shipping').innerHTML = 'Te faltan $' + freeshipping + ' para tener <span class="js-green-text">envío gratis</span>'
         document.querySelector('.js-total').textContent = '$' + cartTotal
         document.querySelector('.js-shipping-cost').textContent = '$' + shippingCost
     }
 }
 
-function removeItemCart(el){
-    const idSelectedCartItem = el.target.dataset.item;
+// funcion para eliminar elementos del carrito
+function removeItemCart(e){
+    const idSelectedCartItem = e.target.dataset.item;
     listaCarrito = listaCarrito.filter((e) => e.id != idSelectedCartItem)
+
+    // ejecuto funciones para renderizar el carrito desplegable
+    setTimeout(function(){
+        renderCart()
+        actualizarTotales()
+    }, 500);
+
     Toastify({
         text: "Producto eliminado",
         duration: 1000
     }).showToast();
-
-    // ejecuto funciones para renderizar el carrito desplegable
-    renderCart()
-    actualizarTotales()
 }
 
 // // Guardo el carrito en sessionStorage
