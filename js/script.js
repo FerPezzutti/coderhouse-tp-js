@@ -4,7 +4,7 @@
 
 let listaCarrito = []
 let listaProductos = []
-let id = 0
+let idCarrito = 0
 let shippingCost = 1000
 let freeShippingFrom = 15000
 
@@ -31,7 +31,7 @@ class CarritoItem{
 window.addEventListener("load", loadProducts());
 window.addEventListener("load", renderCart());
 
-window.addEventListener("load", readFromLocalStorage());
+// window.addEventListener("load", readFromLocalStorage());
 
 // ********************************* FUNCIONES ********************************* //
 
@@ -74,7 +74,8 @@ function addToCart(e) {
     .then( data => {
         let prod = data.find((element) => element.id == idSelectedProd)
         // creo una nueva entrada en el array del carrito
-        const productoElegido = new CarritoItem(id, prod.nombre, prod.precio, prod.stock, prod.img, prod.id)
+        const productoElegido = new CarritoItem(idCarrito, prod.nombre, prod.precio, prod.stock, prod.img, prod.id)
+        idCarrito++
         listaCarrito.push(productoElegido)
     })
     
@@ -108,12 +109,16 @@ function renderCart(){
                 '<div class="col-4">'+
                     '<img class="img-fluid" src="img/'+ prod.img +'" />'+
                 '</div>'+
-                '<div class="col-8">'+
+                '<div class="col-7">'+
                     '<h6>'+ prod.nombre +'</h6>'+
                     '<span>'+ moneda + prod.precio +'</span>'+
                 '</div>'+
+                '<div class="col-1">'+
+                '<a class="cart-trash js-cart-trash"><i class="bi bi-trash" data-item="'+ prod.id +'"></i></a>'+
+                '</div>'+
             '</div>'
             )
+            document.querySelector('.js-cart-trash').addEventListener('click', removeItemCart)
         })
     }
 }
@@ -134,6 +139,19 @@ function actualizarTotales(){
         document.querySelector('.js-total').textContent = '$' + cartTotal
         document.querySelector('.js-shipping-cost').textContent = '$' + shippingCost
     }
+}
+
+function removeItemCart(el){
+    const idSelectedCartItem = el.target.dataset.item;
+    listaCarrito = listaCarrito.filter((e) => e.id != idSelectedCartItem)
+    Toastify({
+        text: "Producto eliminado",
+        duration: 1000
+    }).showToast();
+
+    // ejecuto funciones para renderizar el carrito desplegable
+    renderCart()
+    actualizarTotales()
 }
 
 

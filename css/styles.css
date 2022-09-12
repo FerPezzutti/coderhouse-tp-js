@@ -45,6 +45,11 @@
 #cartModal .modal-header .btn-close{
 	opacity: 1;
 }
+#cartModal .cart-trash{
+	cursor: pointer;
+	font-size: 18px;
+	color: #000;
+}
 .cart-icon{
 	font-size: 30px;
 	position: relative;
