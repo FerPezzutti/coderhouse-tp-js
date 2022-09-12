@@ -30,8 +30,7 @@ class CarritoItem{
 
 window.addEventListener("load", loadProducts());
 window.addEventListener("load", renderCart());
-
-// window.addEventListener("load", readFromLocalStorage());
+// window.addEventListener("load", readFromSessionStorage());
 
 // ********************************* FUNCIONES ********************************* //
 
@@ -87,6 +86,9 @@ function addToCart(e) {
     // ejecuto funciones para renderizar el carrito desplegable
     renderCart()
     actualizarTotales()
+
+    // guardo el carrito en session storage
+    saveInSessionStorage()
 }
 
 // Funcion renderizar carrito
@@ -154,21 +156,18 @@ function removeItemCart(el){
     actualizarTotales()
 }
 
-
-
-
-// // Guardo la lista de productos en LocalStorage
-// function saveInLocalStorage(){
-//     localStorage.setItem('listaProductos', JSON.stringify(listaProductos))
+// // Guardo el carrito en sessionStorage
+// function saveInSessionStorage(){
+//     sessionStorage.setItem('listaCarrito', JSON.stringify(listaCarrito))
 // }
 
-// // Leo los productos desde LocalStorage
-// function readFromLocalStorage(){
-//     if (localStorage.length > 0) {
-//         const listaProductosJson = localStorage.getItem('listaProductos')
-//         const listaProductosFromLocalStorage = JSON.parse(listaProductosJson)
-//         listaProductos = listaProductos.concat(listaProductosFromLocalStorage)
+// // Leo los productos desde sessionStorage
+// function readFromsessionStorage(){
+//     if (sessionStorage.length > 0) {
+//         const listaCarritoJson = sessionStorage.getItem('listaCarrito')
+//         const listaCarritoFromsessionStorage = JSON.parse(listaCarritoJson)
+//         listaCarrito = listaCarrito.concat(listaCarritoFromsessionStorage)
 //         // renderizo productos cargados en local storage
-//         // renderizarProductos()
+//         renderCart()
 //     }
 // }
