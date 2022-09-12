@@ -75,5 +75,12 @@
 	}
 	#cartModal .modal-dialog{
 		max-width: none;
+		margin: 0px;
+	}
+	.btn-add-to-cart{
+		position: absolute;
+		bottom: 0px;
+		opacity: 0.8;
+		transition: none;
 	}
 }
